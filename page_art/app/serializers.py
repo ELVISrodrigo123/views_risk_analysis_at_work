@@ -56,3 +56,11 @@ class MedidaControlSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedidaControl
         fields = ['id', 'descripcion', 'actividad']
+
+class AreaSerializer(serializers.ModelSerializer):
+    opcion_display = serializers.CharField(source='get_opcion_display', read_only=True)
+    artactividad_nombre = serializers.CharField(source='artactividad.nombre', read_only=True)
+
+    class Meta:
+        model = Area
+        fields = "__all__"

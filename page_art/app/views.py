@@ -13,6 +13,7 @@ from .serializers import ( ExcelFileSerializer, ArtactividadSerializer, Activida
                         RiesgoSerializer, MedidaControlSerializer)
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+
 class ExcelFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExcelFile
@@ -52,8 +53,8 @@ class ActividadViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        artactividad_id = self.request.query_params.get('artactividad')
-        if artactividad_id:
+        artactividad_id = self.request.query_params.get('artactividad', None)
+        if artactividad_id is not None:
             queryset = queryset.filter(artactividad_id=artactividad_id)
         return queryset
 
@@ -66,9 +67,14 @@ class ActividadViewSet(viewsets.ModelViewSet):
         serializer_class = ActividadSerializer
 
 
-class PeligroViewSet(ModelViewSet):
-    queryset = Peligro.objects.all()
+class PeligroViewSet(viewsets.ModelViewSet):
     serializer_class = PeligroSerializer
+
+    def get_queryset(self):
+        actividad_id = self.kwargs.get('actividad_id')  # Obtiene el ID de la actividad de la URL
+        if actividad_id:
+            return Peligro.objects.filter(actividad_id=actividad_id)  # Filtra por actividad
+        return Peligro.objects.none()  # Devuelve una lista vacía si no hay actividad_id
 
 class RiesgoViewSet(ModelViewSet):
     queryset = Riesgo.objects.all()
@@ -115,3 +121,7 @@ class MineraDashboardView(APIView):
             return Response({"message": "Bienvenido al dashboard de Minería."})
         else:
             return Response({"error": "No tienes permiso para acceder a esta vista."}, status=403)
+
+class AreaViewSet(viewsets.ModelViewSet):
+    queryset = Area.objects.all()
+    serializer_class = AreaSerializer

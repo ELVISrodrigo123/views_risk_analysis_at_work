@@ -76,7 +76,7 @@ class Area(models.Model):
     
     # Campo para seleccionar la opción
     opcion = models.CharField(
-        max_length=3,  # Longitud de los códigos: '210', '220', etc.
+        max_length=3,  # Longitud de los códigos: '210', '220', etc.  
         choices=OPCIONES_ACTIVIDAD,
         verbose_name='Opción de Area',
         help_text='Selecciona una opción de Area predefinida.'

@@ -4,16 +4,17 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .views import ( ExcelFileViewSet,ArtactividadViewSet, ActividadViewSet, PeligroViewSet, RiesgoViewSet, MedidaControlViewSet)
+from .views import ( ExcelFileViewSet,ArtactividadViewSet, ActividadViewSet, PeligroViewSet, RiesgoViewSet, MedidaControlViewSet, AreaViewSet)
 
 router = DefaultRouter()
 router.register(r'excel-files', ExcelFileViewSet, basename='excel-file')
 router.register(r'artactividad', ArtactividadViewSet, basename='artactividad')
 router.register(r'actividades', ActividadViewSet, basename='actividad')
 
-router.register(r'actividades/(?P<actividad_id>\d+)/peligros', PeligroViewSet, basename='peligros-por-actividad')
+router.register(r'actividades/(?P<actividad_id>\d+)/peligros',PeligroViewSet,basename='peligros-por-actividad')
 router.register(r'actividades/(?P<actividad_id>\d+)/riesgos', RiesgoViewSet, basename='riesgos-por-actividad')
 router.register(r'actividades/(?P<actividad_id>\d+)/medidascontrol', MedidaControlViewSet, basename='medidascontrol-por-actividad')
+router.register(r'areas', AreaViewSet, basename='area')
 
 urlpatterns = [
     path('', include(router.urls)),
