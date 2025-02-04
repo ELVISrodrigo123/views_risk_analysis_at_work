@@ -23,7 +23,7 @@ interface Props {
 const drawerWidth = 240;
 const navItems = [
   { name: 'Home', href: '/' },
-  { name: '210-CHANCADO', href: '/contents/210' },
+  { name: '210-CHANCADO', href: '/management/area/210' },
   { name: '220-DOMO', href: '/contents/220' },
   { name: '230-MOLIENDA', href: '/contents/230' },
   { name: '240-FLOTACION PLOMO', href: '/contents/240' },

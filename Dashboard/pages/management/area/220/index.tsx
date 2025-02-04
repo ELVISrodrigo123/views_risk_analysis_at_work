@@ -3,7 +3,7 @@ const Domo = () => {
     return (
         <>
             <DrawerAppBar />
-            <h1>hola Domo</h1>
+            <h1>hola domo</h1>
         </>
     );
 };
