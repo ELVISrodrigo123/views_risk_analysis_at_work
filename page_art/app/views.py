@@ -77,12 +77,22 @@ class PeligroViewSet(viewsets.ModelViewSet):
         return Peligro.objects.none()  # Devuelve una lista vacía si no hay actividad_id
 
 class RiesgoViewSet(ModelViewSet):
-    queryset = Riesgo.objects.all()
     serializer_class = RiesgoSerializer
 
+    def get_queryset(self):
+        actividad_id = self.kwargs.get('actividad_id')
+        if actividad_id:
+            return Riesgo.objects.filter(actividad_id=actividad_id)
+        return Riesgo.objects.none()
+
 class MedidaControlViewSet(ModelViewSet):
-    queryset = MedidaControl.objects.all()
     serializer_class = MedidaControlSerializer
+
+    def get_queryset(self):
+        actividad_id = self.kwargs.get('actividad_id')
+        if actividad_id:
+            return MedidaControl.objects.filter(actividad_id=actividad_id)
+        return MedidaControl.objects.none()
 
 def home(request):
     return render(request, 'home.html')

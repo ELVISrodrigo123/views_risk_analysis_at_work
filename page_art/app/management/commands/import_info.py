@@ -37,13 +37,14 @@ class Command(BaseCommand):
 
         for excel_file in excel_files:
             try:
-                workbook = load_workbook(excel_file.file.path)
+                workbook = load_workbook(excel_file.file.path, data_only=True)
                 sheet = workbook.active
                 self.stdout.write(self.style.SUCCESS(f'Procesando archivo: {excel_file.file.name}'))
             except Exception as e:
                 self.stdout.write(self.style.ERROR(f'Error al cargar el archivo {excel_file.file.name}: {e}'))
                 continue
 
+            # Obtener el identificador general de la actividad
             superpadre_datos = " ".join(
                 [sheet[f'{col}11'].value.strip() if sheet[f'{col}11'].value else "" for col in "CDEFGHIJKLMNOPQRSTUVWXYZ"]
             ).strip()
@@ -65,33 +66,47 @@ class Command(BaseCommand):
                 if not actividad_parte_b and not actividad_parte_c:
                     break
 
-                actividad_nombre = (
-                    f"{actividad_parte_b.strip() if actividad_parte_b else ''} "
-                    f"{actividad_parte_c.strip() if actividad_parte_c else ''}"
-                ).strip()
-
+                actividad_nombre = f"{actividad_parte_b.strip() if actividad_parte_b else ''} {actividad_parte_c.strip() if actividad_parte_c else ''}".strip()
                 actividad, _ = Actividad.objects.update_or_create(
                     nombre=actividad_nombre,
                     artactividad=superpadre
                 )
 
+                # Extraer peligros
                 peligro_desc = " ".join(
                     [sheet[f'{col}{row}'].value.strip() if sheet[f'{col}{row}'].value else "" for col in "DEFGHI"]
                 ).strip()
                 if peligro_desc:
-                    Peligro.objects.update_or_create(actividad=actividad, descripcion=peligro_desc)
+                    for p in filter(None, peligro_desc.split(".,")):
+                        Peligro.objects.update_or_create(
+                            actividad=actividad,
+                            descripcion=p.strip(),
+                            defaults={'descripcion': p.strip()}
+                        )
 
+                # Extraer riesgos
                 riesgo_desc = " ".join(
                     [sheet[f'{col}{row}'].value.strip() if sheet[f'{col}{row}'].value else "" for col in "JKLM"]
                 ).strip()
                 if riesgo_desc:
-                    Riesgo.objects.update_or_create(actividad=actividad, descripcion=riesgo_desc)
+                    for r in filter(None, riesgo_desc.split(".,")):
+                        Riesgo.objects.update_or_create(
+                            actividad=actividad,
+                            descripcion=r.strip(),
+                            defaults={'descripcion': r.strip()}
+                        )
 
+                # Extraer medidas de control
                 medida_desc = " ".join(
                     [sheet[f'{col}{row}'].value.strip() if sheet[f'{col}{row}'].value else "" for col in "NOPQRSTUVWX"]
                 ).strip()
                 if medida_desc:
-                    MedidaControl.objects.update_or_create(actividad=actividad, descripcion=medida_desc)
+                    for m in filter(None, medida_desc.split(".,")):
+                        MedidaControl.objects.update_or_create(
+                            actividad=actividad,
+                            descripcion=m.strip(),
+                            defaults={'descripcion': m.strip()}
+                        )
 
                 self.stdout.write(f'Fila {row}: Actividad "{actividad_nombre}" procesada.')
                 row += 1

@@ -38,14 +38,33 @@ const Actividad210index = () => {
         try {
             const data = await Actividad210Service.getByArtactividadId(artactividadId);
             setActividades(data);
-            data.forEach(async (actividad) => {
-                const peligrosData = await Actividad210Service.getPeligrosByActividadId(actividad.id);
-                const riesgosData = await Actividad210Service.getRiesgosByActividadId(actividad.id);
-                const medidasData = await Actividad210Service.getMedidasByActividadId(actividad.id);
-                setPeligros((prev) => ({ ...prev, [actividad.id]: peligrosData }));
-                setRiesgos((prev) => ({ ...prev, [actividad.id]: riesgosData }));
-                setMedidas((prev) => ({ ...prev, [actividad.id]: medidasData }));
+
+            // Obtener datos de peligros, riesgos y medidas en paralelo
+            const peligrosPromises = data.map((actividad) => Actividad210Service.getPeligrosByActividadId(actividad.id));
+            const riesgosPromises = data.map((actividad) => Actividad210Service.getRiesgosByActividadId(actividad.id));
+            const medidasPromises = data.map((actividad) => Actividad210Service.getMedidasByActividadId(actividad.id));
+
+            const [peligrosData, riesgosData, medidasData] = await Promise.all([
+                Promise.all(peligrosPromises),
+                Promise.all(riesgosPromises),
+                Promise.all(medidasPromises)
+            ]);
+
+            // Construir objetos para actualizar el estado correctamente
+            const peligrosMap: { [key: number]: Peligro[] } = {};
+            const riesgosMap: { [key: number]: Riesgo[] } = {};
+            const medidasMap: { [key: number]: MedidaControl[] } = {};
+
+            data.forEach((actividad, index) => {
+                peligrosMap[actividad.id] = peligrosData[index] || [];
+                riesgosMap[actividad.id] = riesgosData[index] || [];
+                medidasMap[actividad.id] = medidasData[index] || [];
             });
+
+            // Actualizar el estado en un solo paso
+            setPeligros(peligrosMap);
+            setRiesgos(riesgosMap);
+            setMedidas(medidasMap);
         } catch (error) {
             console.error("Error cargando actividades:", error);
             setActividades([]);
@@ -62,13 +81,31 @@ const Actividad210index = () => {
                             <strong>{actividad.nombre} - {actividad.descripcion}</strong>
                             <Box>
                                 <p style={{ color: "red" }}>
-                                    <strong>Peligros:</strong> {peligros[actividad.id]?.map((p) => p.descripcion).join(", ") || "No hay peligros"}
+                                    <strong>Peligros:</strong>
+                                    <ul>
+                                        {peligros[actividad.id]?.length > 0
+                                            ? peligros[actividad.id].map((p) => <li key={p.id}>{p.descripcion}</li>)
+                                            : <li>No hay peligros</li>
+                                        }
+                                    </ul>
                                 </p>
                                 <p style={{ color: "green" }}>
-                                    <strong>Riesgos:</strong> {riesgos[actividad.id]?.map((r) => r.descripcion).join(", ") || "No hay riesgos"}
+                                    <strong>Riesgos:</strong>
+                                    <ul>
+                                        {riesgos[actividad.id]?.length > 0
+                                            ? riesgos[actividad.id].map((r) => <li key={r.id}>{r.descripcion}</li>)
+                                            : <li>No hay riesgos</li>
+                                        }
+                                    </ul>
                                 </p>
                                 <p style={{ color: "blue" }}>
-                                    <strong>Medidas de Control:</strong> {medidas[actividad.id]?.map((m) => m.descripcion).join(", ") || "No hay medidas de control"}
+                                    <strong>Medidas de Control:</strong>
+                                    <ul>
+                                        {medidas[actividad.id]?.length > 0
+                                            ? medidas[actividad.id].map((m) => <li key={m.id}>{m.descripcion}</li>)
+                                            : <li>No hay medidas de control</li>
+                                        }
+                                    </ul>
                                 </p>
                             </Box>
                         </li>
