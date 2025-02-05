@@ -12,7 +12,7 @@ import {
     IconButton,
     Skeleton
 } from "@mui/material";
-import { VolumeUp } from "@mui/icons-material";
+import { VolumeUp, VolumeOff, PlayArrow } from "@mui/icons-material";
 
 interface Peligro {
     id: number;
@@ -33,6 +33,8 @@ const Actividad210index = () => {
     const [riesgos, setRiesgos] = useState<{ [key: number]: Riesgo[] }>({});
     const [medidas, setMedidas] = useState<{ [key: number]: MedidaControl[] }>({});
     const [loading, setLoading] = useState(true);
+    const [, setSintesis] = useState<SpeechSynthesisUtterance | null>(null);
+    const [estaPausado, setEstaPausado] = useState(false);
     const router = useRouter();
     const { id } = router.query;
 
@@ -82,17 +84,59 @@ const Actividad210index = () => {
         }
 
         window.speechSynthesis.cancel(); // Detener cualquier síntesis en curso
+
         const mensaje = new SpeechSynthesisUtterance();
-        const voces = window.speechSynthesis.getVoices();
-        mensaje.voice = voces.find(v => v.name.includes("Google español")) || null;
+        let voces = window.speechSynthesis.getVoices();
+
+        // Si las voces aún no han cargado, espera 500ms y reintenta
+        if (voces.length === 0) {
+            setTimeout(() => {
+                voces = window.speechSynthesis.getVoices();
+                asignarVoz(mensaje, voces, actividad);
+            }, 500);
+        } else {
+            asignarVoz(mensaje, voces, actividad);
+        }
+    };
+
+    const asignarVoz = (mensaje: SpeechSynthesisUtterance, voces: SpeechSynthesisVoice[], actividad: Actividad) => {
+        // Busca una voz masculina y seria en español
+        const vozMasculina = voces.find(v => 
+            v.lang.includes("es") && (
+                v.name.toLowerCase().includes("male") ||
+                v.name.toLowerCase().includes("deep") ||
+                v.name.toLowerCase().includes("serious") ||
+                v.name.toLowerCase().includes("hombre") ||
+                v.name.toLowerCase().includes("bariton")
+            )
+        ) || voces.find(v => v.lang.includes("es")); // Si no encuentra, usa la primera en español
+
+        mensaje.voice = vozMasculina;
         mensaje.lang = "es-ES";
-        mensaje.rate = 0.9;
-        
+        mensaje.rate = 0.99;  // Velocidad más lenta para sonar más dominante
+        mensaje.pitch = 0.1;  // Tono más bajo para que suene más grave
+
         mensaje.text = `Actividad: ${actividad.nombre}. Peligros: ${peligros[actividad.id]?.map(p => p.descripcion).join(", ") || "No hay peligros"}. ` +
             `Riesgos: ${riesgos[actividad.id]?.map(r => r.descripcion).join(", ") || "No hay riesgos"}. ` +
             `Medidas de Control: ${medidas[actividad.id]?.map(m => m.descripcion).join(", ") || "No hay medidas de control"}.`;
-        
+
+        setSintesis(mensaje);
+        setEstaPausado(false);
         window.speechSynthesis.speak(mensaje);
+    };
+
+    const pausarTexto = () => {
+        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+            window.speechSynthesis.pause();
+            setEstaPausado(true);
+        }
+    };
+
+    const reanudarTexto = () => {
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            setEstaPausado(false);
+        }
     };
 
     return (
@@ -113,6 +157,14 @@ const Actividad210index = () => {
                                     <IconButton color="primary" onClick={() => leerTexto(actividad)}>
                                         <VolumeUp />
                                     </IconButton>
+                                    <IconButton color="secondary" onClick={pausarTexto}>
+                                        <VolumeOff />
+                                    </IconButton>
+                                    {estaPausado && (
+                                        <IconButton color="success" onClick={reanudarTexto}>
+                                            <PlayArrow />
+                                        </IconButton>
+                                    )}
                                     <Box mt={2}>
                                         <Typography color="error"><strong>Peligros:</strong></Typography>
                                         {peligros[actividad.id]?.length ? (

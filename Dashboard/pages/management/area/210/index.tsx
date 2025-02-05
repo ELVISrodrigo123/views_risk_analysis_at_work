@@ -1,13 +1,17 @@
-
+import React from "react";
 import DrawerAppBar from "@/content/principal/components/navbar";
-import Area210Container from "pages/containers/Area210";
-const Chancado = () => {
+import ChancadoContainer from "pages/containers/ChancadoContainer";
+
+interface Props {
+    areas: any[]; // Ajusta el tipo según sea necesario
+}
+
+const Chancado: React.FC<Props> = () => {
     return (
         <>
             <DrawerAppBar />
-
-            <div  style={{marginTop:"3em",padding:"3em"}}>
-            <Area210Container/>
+            <div style={{ marginTop: "3em", padding: "3em" }}>
+                <ChancadoContainer />
             </div>
         </>
     );

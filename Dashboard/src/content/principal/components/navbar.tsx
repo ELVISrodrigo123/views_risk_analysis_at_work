@@ -24,14 +24,14 @@ const drawerWidth = 240;
 const navItems = [
   { name: 'Home', href: '/' },
   { name: '210-CHANCADO', href: '/management/area/210' },
-  { name: '220-DOMO', href: '/contents/220' },
-  { name: '230-MOLIENDA', href: '/contents/230' },
-  { name: '240-FLOTACION PLOMO', href: '/contents/240' },
-  { name: '250-FLOTACION ZINC', href: '/contents/250' },
-  { name: '270-REACTIVOS', href: '/contents/270' },
-  { name: '310-ESPESADORES', href: '/contents/310' },
-  { name: '320-FILTROS', href: '/contents/320' },
-  { name: '330-CARGUIO', href: '/contents/330' },
+  { name: '220-DOMO', href: '/management/area/220' },
+  { name: '230-MOLIENDA', href: '/management/area/230' },
+  { name: '240-FLOTACION PLOMO', href: '/management/area/240' },
+  { name: '250-FLOTACION ZINC', href: '/management/area/250' },
+  { name: '270-REACTIVOS', href: '/management/area/270' },
+  { name: '310-ESPESADORES', href: '/management/area/310' },
+  { name: '320-FILTROS', href: '/management/area/320' },
+  { name: '330-CARGUIO', href: '/management/area/330' },
   { name: 'Sign In', href: '/auth', isButton: true }, // "Sign In" será un botón
 ];
 

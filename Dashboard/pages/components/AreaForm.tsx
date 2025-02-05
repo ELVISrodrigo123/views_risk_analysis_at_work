@@ -9,7 +9,7 @@ interface Artactividad {
 }
 
 interface Props {
-    onSubmit: (area: Omit<Area, "id">) => void;
+    onSubmit: (area: { artactividad: number; opcion: string }) => void;
     areaSeleccionada?: Area | null;
     resetSeleccion: () => void;
 }
@@ -27,8 +27,8 @@ const opciones = [
 ];
 
 const AreaForm: React.FC<Props> = ({ onSubmit, areaSeleccionada, resetSeleccion }) => {
-    const [area, setArea] = useState<Omit<Area, "id">>({
-        artactividad: { id: 0, nombre: "" },
+    const [area, setArea] = useState<{ artactividad: number; opcion: string }>({
+        artactividad: 0,
         opcion: "",
     });
 
@@ -49,11 +49,11 @@ const AreaForm: React.FC<Props> = ({ onSubmit, areaSeleccionada, resetSeleccion 
     useEffect(() => {
         if (areaSeleccionada) {
             setArea({
-                artactividad: areaSeleccionada.artactividad,
+                artactividad: areaSeleccionada.artactividad.id,
                 opcion: areaSeleccionada.opcion || "",
             });
         } else {
-            setArea({ artactividad: { id: 0, nombre: "" }, opcion: "" });
+            setArea({ artactividad: 0, opcion: "" });
         }
     }, [areaSeleccionada]);
 
@@ -62,27 +62,37 @@ const AreaForm: React.FC<Props> = ({ onSubmit, areaSeleccionada, resetSeleccion 
 
         setArea((prev) => ({
             ...prev,
-            [name]:
-                name === "artactividad"
-                    ? { ...prev.artactividad, id: Number(value) }
-                    : value,
+            [name]: name === "artactividad" ? Number(value) : value,
         }));
     };
 
-    const manejarEnvio = (e: React.FormEvent) => {
+    const manejarEnvio = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(area);
-        resetSeleccion();
-        setArea({ artactividad: { id: 0, nombre: "" }, opcion: "" });
+
+        if (area.artactividad === 0) {
+            alert("Selecciona una actividad válida.");
+            return;
+        }
+
+        console.log("📤 Enviando datos:", area);
+
+        try {
+            await onSubmit(area);
+            resetSeleccion();
+            setArea({ artactividad: 0, opcion: "" });
+        } catch (error) {
+            console.error("❌ Error al enviar el formulario:", error);
+            alert("Error al enviar los datos. Revisa la consola.");
+        }
     };
 
     return (
-        <form onSubmit={manejarEnvio} style={{ display: "flex", flexDirection: "column", gap: "10px", paddingBottom:"2em" }}>
+        <form onSubmit={manejarEnvio} style={{ display: "flex", flexDirection: "column", gap: "10px", paddingBottom: "2em" }}>
             <TextField
                 select
                 label="Actividad"
                 name="artactividad"
-                value={area.artactividad.id}
+                value={area.artactividad}
                 onChange={manejarCambio}
                 required
             >

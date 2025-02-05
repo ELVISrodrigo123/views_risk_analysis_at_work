@@ -1,20 +1,20 @@
 import React from "react";
 import DrawerAppBar from "@/content/principal/components/navbar";
-import DomoContainer from "pages/containers/DomoContainer";
+import EspesadoresContainer from "pages/containers/EspesadoresContainer";
 
 interface Props {
-    areas: any[]; // Ajusta el tipo según sea necesario
+    areas: any[];
 }
 
-const Domo: React.FC<Props> = () => {
+const Espesadores: React.FC<Props> = () => {
     return (
         <>
             <DrawerAppBar />
             <div style={{ marginTop: "3em", padding: "3em" }}>
-                <DomoContainer />
+                <EspesadoresContainer />
             </div>
         </>
     );
 };
 
-export default Domo;
+export default Espesadores;

@@ -1,20 +1,20 @@
 import React from "react";
 import DrawerAppBar from "@/content/principal/components/navbar";
-import DomoContainer from "pages/containers/DomoContainer";
+import ReactivosContainer from "pages/containers/ReactivosContainer";
 
 interface Props {
-    areas: any[]; // Ajusta el tipo según sea necesario
+    areas: any[]; 
 }
 
-const Domo: React.FC<Props> = () => {
+const Reactivos: React.FC<Props> = () => {
     return (
         <>
             <DrawerAppBar />
             <div style={{ marginTop: "3em", padding: "3em" }}>
-                <DomoContainer />
+                <ReactivosContainer />
             </div>
         </>
     );
 };
 
-export default Domo;
+export default Reactivos;

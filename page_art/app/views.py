@@ -13,6 +13,7 @@ from .serializers import ( ExcelFileSerializer, ArtactividadSerializer, Activida
                         RiesgoSerializer, MedidaControlSerializer)
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view
 
 class ExcelFileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -131,7 +132,11 @@ class MineraDashboardView(APIView):
             return Response({"message": "Bienvenido al dashboard de Minería."})
         else:
             return Response({"error": "No tienes permiso para acceder a esta vista."}, status=403)
-
+        
+@api_view(['POST'])
+def crear_area(request):
+    print("Datos recibidos:", request.data)  # 📌 Muestra los datos en el backend
+    return Response({"mensaje": "Datos recibidos"}, status=200)
 class AreaViewSet(viewsets.ModelViewSet):
     queryset = Area.objects.all()
     serializer_class = AreaSerializer
