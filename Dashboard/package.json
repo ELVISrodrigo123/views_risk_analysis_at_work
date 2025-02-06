@@ -8,6 +8,7 @@
     "url": "https://bloomui.com"
   },
   "private": false,
+  "proxy": "http://backend:8000",
   "dependencies": {
     "@emotion/cache": "11.7.1",
     "@emotion/react": "11.9.0",

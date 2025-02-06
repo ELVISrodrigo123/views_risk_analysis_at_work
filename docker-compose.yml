@@ -12,7 +12,8 @@ services:
       - ./page_art:/app
       - ./page_art/media:/app/media
       - ./page_art/actividades.db:/app/actividades.db
-
+    networks:
+      - backend
   frontend:
     build:
       context: ./Dashboard
@@ -26,3 +27,11 @@ services:
       - ./Dashboard:/app
       - /app/node_modules
     command: ["yarn", "run", "dev"]
+    networks:
+      - frontend
+      - backend
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
