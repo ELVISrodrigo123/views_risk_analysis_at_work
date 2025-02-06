@@ -1,6 +1,6 @@
 import { ExcelFile } from "../models/ExcelFile";
 
-const API_URL = "http://127.0.0.1:8000/api/excel-files/";
+const API_URL = "http://django_b/api/excel-files/";
 
 // Obtener todos los archivos Excel
 export const getExcelFiles = async (): Promise<ExcelFile[]> => {
