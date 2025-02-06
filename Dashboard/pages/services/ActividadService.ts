@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Actividad } from '../models/ActividadModel';
 
-const API_URL = 'http://django_b:8000/api/actividades/';
+const API_URL = 'http://0.0.0.0:8000/api/actividades/';
 
 const ActividadService = {
   getAll: async (): Promise<Actividad[]> => {

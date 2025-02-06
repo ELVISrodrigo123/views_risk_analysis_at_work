@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Riesgo } from "../models/Riesgo";
 
-const API_URL = "http://localhost:8000/api"; // Ajusta según tu configuración
+const API_URL = "http://0.0.0.0:8000/api"; // Ajusta según tu configuración
 
 export const getRiesgosPorActividad = async (actividadId: number): Promise<Riesgo[]> => {
     try {

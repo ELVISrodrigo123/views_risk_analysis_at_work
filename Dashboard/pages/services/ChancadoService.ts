@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://django_b/api/artactividad/';
+const API_URL = 'http://0.0.0.0:8000/api/artactividad/';
 
 const ChancadoServices = {
     listarTodos: async () => {
