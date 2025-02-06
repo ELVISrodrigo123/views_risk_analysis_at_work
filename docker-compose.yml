@@ -3,7 +3,7 @@ services:
     build:
       context: ./page_art
       dockerfile: Dockerfile
-    container_name: django_backend
+    container_name: django_b
     ports:
       - "8000:8000"
     env_file:
@@ -17,10 +17,12 @@ services:
     build:
       context: ./Dashboard
       dockerfile: Dockerfile
-    container_name: react_frontend
+    container_name: react_f
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
     volumes:
       - ./Dashboard:/app
+      - /app/node_modules
+    command: ["yarn", "run", "dev"]
