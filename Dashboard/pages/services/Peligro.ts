@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://backend:8000/api/actividad";
+const API_URL = "http://msc.sa.elvisrodrigo.com:8000/api/actividad";
 
 interface Actividad {
     id: number;

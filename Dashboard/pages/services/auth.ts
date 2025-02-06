@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://backend:8000/api/'; // URL de tu backend Django
+const API_URL = 'http://msc.sa.elvisrodrigo.com:8000/api/'; // URL de tu backend Django
 
 // Interfaz para la respuesta de autenticación
 interface AuthResponse {

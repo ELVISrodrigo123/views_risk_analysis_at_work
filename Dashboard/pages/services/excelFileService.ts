@@ -1,6 +1,6 @@
 import { ExcelFile } from "../models/ExcelFile";
 
-const API_URL = "http://backend:8000/api/excel-files/";
+const API_URL = "http://msc.sa.elvisrodrigo.com:8000/api/excel-files/";
 
 // Obtener todos los archivos Excel
 export const getExcelFiles = async (): Promise<ExcelFile[]> => {

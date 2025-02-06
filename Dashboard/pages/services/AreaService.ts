@@ -2,7 +2,7 @@ import axios from "axios";
 import { Area } from "../models/Area";
 import ArtactividadService from "./ArtactividadService";
 
-const API_URL = "http://backend:8000/api/areas/";
+const API_URL = "http://msc.sa.elvisrodrigo.com:8000/api/areas/";
 
 const AreaService = {
   listarTodos: async (): Promise<Area[]> => {

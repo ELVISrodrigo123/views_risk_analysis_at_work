@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Actividad } from '../models/ActividadModel';
 
-const API_URL = 'http://backend:8000/api/actividades/';
+const API_URL = 'http://msc.sa.elvisrodrigo.com:8000/api/actividades/';
 
 interface Peligro {
   id: number;
