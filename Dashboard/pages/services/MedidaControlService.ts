@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MedidaControl } from "../models/MedidaControl";
 
-const API_URL = "http://msc.sa.elvisrodrigo.com:8000/api/";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/`;
 
 export const getMedidasControlPorActividad = async (actividadId: number): Promise<MedidaControl[]> => {
     try {

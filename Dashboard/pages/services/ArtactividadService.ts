@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://msc.sa.elvisrodrigo.com:8000/api/artactividad/'; // Cambia según tu backend
-
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/artactividad/`; // Cambia según tu backend
+console.log(API_URL)
 export interface Artactividad {
     id?: number;
     nombre: string;

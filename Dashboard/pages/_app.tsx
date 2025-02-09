@@ -13,6 +13,7 @@ import createEmotionCache from 'src/createEmotionCache';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import dotenv from 'dotenv';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -26,6 +27,7 @@ interface TokyoAppProps extends AppProps {
 }
 
 function TokyoApp(props: TokyoAppProps) {
+  dotenv.config();
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page) => page);
 

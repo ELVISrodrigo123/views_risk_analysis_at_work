@@ -5,7 +5,12 @@ import VisionSection from './components/BarListimg';
 import RiskAnalysis from './components/Mycomponentsone';
 import Footer from './components/Footer';
 import IndustrialSafety from './components/Mycomponentsthree';
+
 export default function Principal() {
+
+  const url = process.env.NEXT_PUBLIC_API_URL;
+
+  fetch(url).then((res) => res.json()).then((data) => console.log(data));
 
   AOS.init();
   return (

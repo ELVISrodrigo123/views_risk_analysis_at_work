@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://msc.sa.elvisrodrigo.com:8000/api/artactividad/';
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/artactividad/`;
 
 const ChancadoServices = {
     listarTodos: async () => {

@@ -38,6 +38,9 @@ const Actividad210index = () => {
     const router = useRouter();
     const { id } = router.query;
 
+    console.log(process.env.API_URL);
+    
+
     useEffect(() => {
         if (id) {
             const artactividadId = Number(id);
