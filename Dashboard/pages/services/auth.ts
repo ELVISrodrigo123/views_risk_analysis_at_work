@@ -8,10 +8,6 @@ interface AuthResponse {
   refresh: string;
 }
 
-// Interfaz para los errores de autenticación
-interface AuthError {
-  message: string;
-}
 
 // Función para iniciar sesión
 export const login = async (

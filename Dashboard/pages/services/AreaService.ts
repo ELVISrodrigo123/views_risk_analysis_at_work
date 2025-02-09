@@ -7,8 +7,8 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/areas/`;
 const AreaService = {
   listarTodos: async (): Promise<Area[]> => {
     try {
-      const response = await axios.get(API_URL);
-      const areas: Area[] = response.data;
+      const {data} = await axios.get(API_URL);
+      const areas: Area[] = data;
 
       // Validar si la respuesta es un array
       if (!Array.isArray(areas)) {
@@ -37,12 +37,16 @@ const AreaService = {
         const artactividad = artactividadMap[artactividadId] || {
           id: artactividadId,
           nombre: "Desconocido",
+          descripcion: "",
         };
-
-        return {
+        
+        const areaModificada = {
           ...area,
-          artactividad, // Sobrescribir artactividad con objeto completo
-        };
+          artactividad,
+        } as Area;
+        console.log(areaModificada)
+        return areaModificada
+        
       });
     } catch (error) {
       console.error("Error al listar áreas:", error);

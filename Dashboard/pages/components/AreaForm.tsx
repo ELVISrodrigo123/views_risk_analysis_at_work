@@ -3,10 +3,6 @@ import { TextField, Button, MenuItem } from "@mui/material";
 import { Area } from "../models/Area";
 import ArtactividadService from "../services/ArtactividadService";
 
-interface Artactividad {
-    id: number;
-    nombre: string;
-}
 
 interface Props {
     onSubmit: (area: { artactividad: number; opcion: string }) => void;
@@ -32,11 +28,11 @@ const AreaForm: React.FC<Props> = ({ onSubmit, areaSeleccionada, resetSeleccion 
         opcion: "",
     });
 
-    const [artactividades, setArtactividades] = useState<Artactividad[]>([]);
+    const [artactividades, setArtactividades] = useState([]);
 
     useEffect(() => {
         ArtactividadService.listarTodos()
-            .then((data: Artactividad[]) => {
+            .then((data) => {
                 if (Array.isArray(data)) {
                     setArtactividades(data);
                 } else {
@@ -50,7 +46,7 @@ const AreaForm: React.FC<Props> = ({ onSubmit, areaSeleccionada, resetSeleccion 
         if (areaSeleccionada) {
             setArea({
                 artactividad: areaSeleccionada.artactividad.id,
-                opcion: areaSeleccionada.opcion || "",
+                opcion: areaSeleccionada.opcion_display || "",
             });
         } else {
             setArea({ artactividad: 0, opcion: "" });

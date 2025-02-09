@@ -3,6 +3,7 @@ export interface Area {
     artactividad: {
         id: number;
         nombre: string;
+        descripcion: string;
     };
     opcion_display: string;
 }
