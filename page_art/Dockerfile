@@ -13,6 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el resto de la aplicación Django
 COPY . .
 
+# Configurar variables de entorno
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 # Exponer el puerto 8000
 EXPOSE 8000
 
