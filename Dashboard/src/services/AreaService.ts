@@ -54,7 +54,7 @@ const AreaService = {
     }
   },
 
-  crearArea: async (area: Omit<Area, "id">) => {
+  crearArea: async (area: string) => {
     try {
       await axios.post(API_URL, area);
     } catch (error) {

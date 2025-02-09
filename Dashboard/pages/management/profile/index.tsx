@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ExcelFile } from '../../models/ExcelFile';
-import { getExcelFiles, createExcelFile, updateExcelFile, deleteExcelFile } from '../../services/excelFileService';
+import { ExcelFile } from '../../../src/models/ExcelFile';
+import { getExcelFiles, createExcelFile, updateExcelFile, deleteExcelFile } from '../../../src/services/excelFileService';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Switch, IconButton, CircularProgress, Box } from '@mui/material';
 import { UploadFile, Delete, CloudUpload } from '@mui/icons-material';
 import SidebarLayout from '@/layouts/SidebarLayout';

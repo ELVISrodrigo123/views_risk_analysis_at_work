@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import Actividad210Service from "../../services/Actividad210Service";
-import { Actividad } from "../../models/ActividadModel";
+import Actividad210Service from "../../../src/services/Actividad210Service";
+import { Actividad } from "../../../src/models/ActividadModel";
 import {
     Box,
     Card,

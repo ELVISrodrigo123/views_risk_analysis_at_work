@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getRiesgosPorActividad } from "../services/RiesgoService";
-import { Riesgo, Actividad } from "../models/Riesgo";
+import { getRiesgosPorActividad } from "../../src/services/RiesgoService";
+import { Riesgo, Actividad } from "../../src/models/Riesgo";
 
 interface Props {
     actividadId: number;

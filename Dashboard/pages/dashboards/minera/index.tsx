@@ -1,7 +1,7 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { isAuthenticated } from '../../services/auth';  // Importa la función de autenticación
+import { isAuthenticated } from '../../../src/services/auth';  // Importa la función de autenticación
 
 function DashboardCrypto() {
   const router = useRouter();

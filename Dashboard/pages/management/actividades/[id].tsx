@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import SidebarLayout from "@/layouts/SidebarLayout";
-import ActividadService from "../../services/ActividadService";
-import { Actividad } from "../../models/ActividadModel";
+import ActividadService from "../../../src/services/ActividadService";
+import { Actividad } from "../../../src/models/ActividadModel";
 import Button from "@mui/material/Button";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import Box from "@mui/material/Box";

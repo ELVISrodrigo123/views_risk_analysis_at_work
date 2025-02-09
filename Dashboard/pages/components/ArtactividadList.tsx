@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Artactividad } from "../services/ArtactividadService";
+import { Artactividad } from "@/services/ArtactividadService";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";

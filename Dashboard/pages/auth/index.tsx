@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Button, Typography, TextField, IconButton, Alert } from '@mui/material';
 import { Person, Lock, HelpOutline, Login } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-import { login } from '../services/auth';
+import { login } from '../../src/services/auth';
 
 const SignIn = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, MenuItem } from "@mui/material";
-import { Area } from "../models/Area";
-import ArtactividadService from "../services/ArtactividadService";
+import { Area } from "../../src/models/Area";
+import ArtactividadService from "../../src/services/ArtactividadService";
 
 
 interface Props {
@@ -83,7 +83,7 @@ const AreaForm: React.FC<Props> = ({ onSubmit, areaSeleccionada, resetSeleccion 
     };
 
     return (
-        <form onSubmit={manejarEnvio} style={{ display: "flex", flexDirection: "column", gap: "10px", paddingBottom: "2em" }}>
+        <form action="" onSubmit={manejarEnvio} style={{ display: "flex", flexDirection: "column", gap: "10px", paddingBottom: "2em" }}>
             <TextField
                 select
                 label="Actividad"
