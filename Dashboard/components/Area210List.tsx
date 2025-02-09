@@ -1,17 +1,18 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Artactividad } from "../../src/services/ArtactividadService";
+import { Artactividad } from "../src/services/ArtactividadService";
 import { Button } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 interface ArtactividadListProps {
     artactividades: Artactividad[];
-    onEliminar?: (id: number) => void; // Opcional, si no lo usas, puedes eliminarlo
-    onEditar?: (artactividad: Artactividad) => void; // Opcional, si no lo usas, puedes eliminarlo
+    // onEliminar?: (id: number) => void; // Opcional, si no lo usas, puedes eliminarlo
+    // onEditar?: (artactividad: Artactividad) => void; // Opcional, si no lo usas, puedes eliminarlo
 }
 
 const Area210List: React.FC<ArtactividadListProps> = ({ artactividades }) => {
     const router = useRouter();
+
 
     const handleMostrarActividades = (artactividadId: number) => {
         if (!artactividadId) {

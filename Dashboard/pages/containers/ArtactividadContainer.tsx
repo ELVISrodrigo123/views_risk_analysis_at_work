@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ArtactividadService, { Artactividad } from '../../src/services/ArtactividadService';
-import ArtactividadList from '../components/ArtactividadList';
-import ArtactividadForm from '../components/ArtactividadForm';
+import ArtactividadList from '../../components/ArtactividadList';
+import ArtactividadForm from 'pages/ArtactividadForm';
 
 const ArtactividadContainer: React.FC = () => {
   const [artactividades, setArtactividades] = useState<Artactividad[]>([]);

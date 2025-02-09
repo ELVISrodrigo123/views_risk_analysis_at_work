@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ArtactividadService, { Artactividad } from '../../src/services/ArtactividadService';
-import ArtactividadList from '../components/Area210List';
+import ArtactividadList from '../../components/Area210List';
 
 const ChancadoContainer: React.FC = () => {
     const [artactividades, setArtactividades] = useState<Artactividad[]>([]);
@@ -22,14 +22,14 @@ const ChancadoContainer: React.FC = () => {
         }
     };
 
-    const manejarEliminar = async (id: number) => {
-        try {
-            await ArtactividadService.eliminarArtactividad(id);
-            cargarArtactividades(); // Recargar actividades después de eliminar
-        } catch (error) {
-            console.error('Error al eliminar la actividad:', error);
-        }
-    };
+    // const manejarEliminar = async (id: number) => {
+    //     try {
+    //         await ArtactividadService.eliminarArtactividad(id);
+    //         cargarArtactividades(); // Recargar actividades después de eliminar
+    //     } catch (error) {
+    //         console.error('Error al eliminar la actividad:', error);
+    //     }
+    // };
 
     return (
         <div className="p-4">
@@ -40,8 +40,8 @@ const ChancadoContainer: React.FC = () => {
             {/* Lista de actividades filtradas */}
             <ArtactividadList
                 artactividades={artactividades}
-                onEliminar={manejarEliminar}
-                onEditar={() => {}} // Puedes dejar esto vacío si no se necesita
+                // onEliminar={manejarEliminar}
+                // onEditar={() => {}} // Puedes dejar esto vacío si no se necesita
             />
         </div>
     );

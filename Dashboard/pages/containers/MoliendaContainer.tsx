@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ArtactividadService, { Artactividad } from '../../src/services/ArtactividadService';
-import ArtactividadList from '../components/Area210List';
+import ArtactividadList from '../../components/Area210List';
 
 const MoliendaContainer: React.FC = () => {
     const [artactividades, setArtactividades] = useState<Artactividad[]>([]);
@@ -22,14 +22,14 @@ const MoliendaContainer: React.FC = () => {
         }
     };
 
-    const manejarEliminar = async (id: number) => {
-        try {
-            await ArtactividadService.eliminarArtactividad(id);
-            cargarArtactividades();
-        } catch (error) {
-            console.error('Error al eliminar la actividad:', error);
-        }
-    };
+    // const manejarEliminar = async (id: number) => {
+    //     try {
+    //         await ArtactividadService.eliminarArtactividad(id);
+    //         cargarArtactividades();
+    //     } catch (error) {
+    //         console.error('Error al eliminar la actividad:', error);
+    //     }
+    // };
 
     return (
         <div className="p-4">
@@ -40,8 +40,8 @@ const MoliendaContainer: React.FC = () => {
 
             <ArtactividadList
                 artactividades={artactividades}
-                onEliminar={manejarEliminar}
-                onEditar={() => {}}
+                // onEliminar={manejarEliminar}
+                // onEditar={() => {}}
             />
         </div>
     );

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ArtactividadService, { Artactividad } from '../../src/services/ArtactividadService';
-import ArtactividadList from '../components/Area210List';
+import ArtactividadList from '../../components/Area210List';
 
 const Area210Container: React.FC = () => {
     const [artactividades, setArtactividades] = useState<Artactividad[]>([]);
-    const [, setSelectedArtactividad] = useState<Artactividad | null>(null);
+    // const [, setSelectedArtactividad] = useState<Artactividad | null>(null);
 
     useEffect(() => {
         cargarArtactividades();
@@ -19,10 +19,10 @@ const Area210Container: React.FC = () => {
             console.error('Error al cargar las actividades:', error);
         }
     };
-    const manejarEliminar = async (id: number) => {
-        await ArtactividadService.eliminarArtactividad(id);
-        cargarArtactividades();
-    };
+    // const manejarEliminar = async (id: number) => {
+    //     await ArtactividadService.eliminarArtactividad(id);
+    //     cargarArtactividades();
+    // };
 
     return (
         <div className="p-4">
@@ -32,8 +32,8 @@ const Area210Container: React.FC = () => {
 
             <ArtactividadList
                 artactividades={Array.isArray(artactividades) ? artactividades : []}
-                onEliminar={manejarEliminar}
-                onEditar={setSelectedArtactividad}
+                // onEliminar={manejarEliminar}
+                // onEditar={setSelectedArtactividad}
             />
         </div>
     );
