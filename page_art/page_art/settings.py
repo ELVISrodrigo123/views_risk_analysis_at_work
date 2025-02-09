@@ -134,11 +134,13 @@ SIMPLE_JWT = {
 }
 
 # CORS Configuration
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://146.190.42.117:3000",
-    "https://msc.sa.elvisrodrigo.com",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://146.190.42.117:3000",
+#     "https://msc.sa.elvisrodrigo.com",
+# ]
+
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://146.190.42.117:3000').split(',')
 
 # Custom User Model
 AUTH_USER_MODEL = 'app.CustomUser'  # Asegúrate de que 'app' sea el nombre correcto de tu aplicación
